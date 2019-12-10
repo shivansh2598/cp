@@ -1,0 +1,1 @@
+cmd_/home/alpha/usbKernel/pen_register.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds  --build-id  -o /home/alpha/usbKernel/pen_register.ko /home/alpha/usbKernel/pen_register.o /home/alpha/usbKernel/pen_register.mod.o ;  true
