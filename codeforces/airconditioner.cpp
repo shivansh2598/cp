@@ -16,11 +16,6 @@ void vprint(vector<int>&v)
 void aprint(int *arr,int n)
 {  for(int i=0;i<n;i++)cout<<arr[i]<<' ';cout<<endl;}
 
-struct st{
-    lli t;
-    lli l;
-    lli h;
-}
 
 int main()
 {
@@ -30,26 +25,60 @@ int main()
     { 
         lli n,m;
         cin>>n>>m;
-        vector<*st>vect;
+        lli hp=m,lp=m;
+        lli tp=0;
+        bool poss=true;
         forn(i,n)
         {
-            lli t,l,h;
-            cin>>t>>l>>h;
-            st *temp = new st();
-            temp->t=t;
-            temp->l=l;
-            temp->h=h;
-            vect.pb(temp);
+            lli tc,lc,hc;
+            cin>>tc>>lc>>hc;
+            if(!poss)
+            continue;
+            lli tf=tc;
+            lli lf,hf;
+            tc=tc-tp;
+            lf=lp-tc;
+            hf=hp+tc;
+            // cout<<"lc "<<lc<<" "<<"hc "<<hc<<endl;
+            if(hc<lf || lc>hf)
+            {
+                poss=false;
+            }
+            else if(lc<=lf && hc>=hf)
+            {
+                hp=hf;
+                lp=lf;
+                tp=tf;
+                // cout<<"lp "<<lp<<" "<<"hp "<<hp<<endl;
+                continue;
+            }
+            else if(lc>=lf && hc<=hf)
+            {
+                hp=hc;
+                lp=lc;
+                tp=tf;
+                // cout<<"lp "<<lp<<" "<<"hp "<<hp<<endl;
+                continue;
+            }
+            else
+            {
+                hp=min(hc,hf);
+                lp=max(lc,lf);
+                tp=tf;
+                // cout<<"lp "<<lp<<" "<<"hp "<<hp<<endl;
+            } 
+
+            
+ 
+
         }
-        lli t1=0,t2=0;
-        forn(i,n)
+        if(poss)
+        cout<<"YES"<<endl;
+        else
         {
-            lli t1=t2;
-            t2=*vect[i]->t;
-            lli diff=t2-t1;
-            lli l=*vect[i]->l;
-            lli h=*vect[i]->h;
-            if(m>=l )
+            cout<<"NO"<<endl;
         }
+        
+            continue;
     }
 }
