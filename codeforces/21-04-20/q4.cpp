@@ -29,9 +29,6 @@ int main()
         lli n, k;
         cin >> n >> k;
         vector<int> vect;
-        int freq[2 * k + 1];
-        fr(i, 0, 2 * k + 1)
-            freq[i] = 0;
 
         fr(i, 0, n)
         {
@@ -40,66 +37,40 @@ int main()
             vect.pb(x);
         }
 
-        fr(i, 0, n / 2)
+        int nochange[2*k+2];
+        int singlechange[2*k+2];
+
+        memset(nochange, 0, sizeof(int)*(2*k+2));
+        memset(singlechange, 0, sizeof(int)*(2*k+2));
+
+        for(int i=0;i<n/2;i++)
         {
-            int sum = vect[i] + vect[n - 1 - i];
-            freq[sum]++;
+            int sum = vect[i] + vect[n-1-i];
+            nochange[sum]++;
         }
 
-        int mxfreq = INT_MIN;
-        int mxfreqind = INT_MIN;
-
-        fr(i, 0, 2 * k + 1)
+        for(int i=0;i<n/2;i++)
         {
-            if (freq[i] >= mxfreq)
-            {
-                mxfreq = freq[i];
-                mxfreqind = i;
-            }
+            int a = min(vect[i],vect[n-i-1])+1;
+            int b = max(vect[i], vect[n-i-1])+k;
+            singlechange[a]+=1;
+            singlechange[b+1]-=1;
         }
 
-        vector<int> v;
-        fr(i, 0, 2 * k + 1)
+        for(int i=1;i<2*k+2;i++)
         {
-            if (freq[i] == mxfreq)
-            {
-                v.push_back(i);
-            }
+            singlechange[i]+=singlechange[i-1];
         }
 
-        lli fminchanges = INT_MAX;
-
-        for (int j = 0; j < v.size(); j++)
+        int minz = INT_MAX;
+        for(int i=2; i<=2*k;i++)
         {
-            lli minchanges = 0;
-            fr(i, 0, n / 2)
-            {
-                int sum = vect[i] + vect[n - 1 - i];
-                if (sum == v[j])
-                    continue;
-
-                if (sum > v[j])
-                {
-                    if (vect[i] > v[j] - 1 && vect[n - i - 1] > v[j] - 1)
-                        minchanges += 2;
-                    else
-                    {
-                        minchanges += 1;
-                    }
-                }
-                else
-                {
-                    if ((k + vect[i]) < v[j] && (k + vect[n - 1 - i]) < v[j])
-                        minchanges += 2;
-                    else
-                    {
-                        minchanges += 1;
-                    }
-                }
-            }
-            fminchanges = min(fminchanges,minchanges);
+            int doublechange = n/2 - (singlechange[i]);
+            int ekchange = singlechange[i]-nochange[i];
+            int value = ekchange + doublechange*2;
+            minz = min(value, minz);
         }
 
-        cout << min(fminchanges, n / 2) << endl;
+        cout<<minz<<endl;
     }
 }
