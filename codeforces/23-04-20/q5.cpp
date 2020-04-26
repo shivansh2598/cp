@@ -15,9 +15,5 @@ void aprint(int *arr,int n)
 
 int main()
 {
-   int arr[]={100,255,124,153,45,698};
-   for(int child : arr)
-   {
-       cout<<child<<endl;
-   }
+   
 }

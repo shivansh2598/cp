@@ -34,7 +34,6 @@ int main()
   int maxlen;
   maxlen = 0;
   int n = s.length();
-
   for (int i = 0; i < n; i++)
   {
     // part1 for odd length pallindrome
@@ -69,11 +68,6 @@ int main()
         left--;
         right++;
       }
-      else
-      {
-        break;
-      }
-      
     }
     if(count > maxlen)
     maxlen = count;
